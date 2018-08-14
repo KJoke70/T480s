@@ -17,4 +17,54 @@ Dualboot (Windows 10 + Arch) with disk encryption
 Windows Installation
 ~~~~~~~~~~~~~~~~~~~~
 
-As it is usually recommended, we start with installing Windows.
+As it is usually recommended, we start with installing Windows. The
+Installation can be done as usual, however Windows will create an EFI
+partition of the size 99MB automatically.
+
+To change that:
+
+* Proceed to the paritioning step
+* Create the Windows partition (`new->set size->apply`)
+* Press `Shift+F10` to open a command prompt. If you loose the window,
+  you can get it back with `Shift+Tab`.
+* Enter `diskpart`
+* Enter `list disk`. The output should look something like this:
++
+----------------------------------------------------
+  Disk ###  Status      Size    Free    Dyn   Gpt
+  --------  ----------  ------  ------  ----  ---
+* Disk 0    Online      476 GB  476 GB         * <1>
+  Disk 1    Online       14 GB   14 GB           <2>
+  Disk 2    No Media      0  B    0  B           <3>
+----------------------------------------------------
+<1> My primary disk.
+<2> The USB stick I use for installing Windows
+<3> Something else
+
+
+* Now select your primary disk with `select disk 0` (if 0 is your
+  primary disk)
+* Enter `list partition`. The output should look like this:
++
+---------------------------------------------------
+  Partition ###  Type              Size     Offset
+  -------------  ----------------  -------  -------
+  Partition 1    Recovery           499 MB  1024 KB
+  Partition 2    System              99 MB   500 MB
+  Partition 3    Reserved            16 MB   599 MB
+  Partition 4    Primary            145 GB   615 MB
+---------------------------------------------------
+
+* Now delete partition 4 by entering `select partition 4` and then
+  `delete partition override`
+* Repeat this step for partition 3 and 2
+* Create a bigger *EFI*-partition by entering `create partition efi
+  size=1024` (with the size 1024MB)
+* Re-Create the +Reserved+ partition with `create partition msr
+  size=16`
+* Re-Create your primary partition with `create partition primary
+  size=148480` (for 145GB)
+* Exit +diskpart+ with `exit`
+* Close the command prompt and continue partitioning as usual
+* Finish the installation process
+
