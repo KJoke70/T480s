@@ -68,3 +68,85 @@ To change that:
 * Close the command prompt and continue partitioning as usual
 * Finish the installation process
 
+
+Enable Bitlocker
+~~~~~~~~~~~~~~~~
+
+* Go to `Control Panel -> Bitlocker Drive Encryption -> Turn on
+  BitLocker`
+
+
+Arch Installation
+~~~~~~~~~~~~~~~~~
+
+* Boot from archiso CD/USB
+* Set the keyboard layout with `loadkeys de-latin1` (for the german
+  layout)
+* Check internet connection with `ping archlinux.org`
+* Verify EFI with `ls /sys/firmware/efi/efivars`
+* Set the time with `timedatectl set-ntp true` and `timedatectl
+  set-timezone Europe/Berlin`
+
+Partitioning
+^^^^^^^^^^^^
+
+This is the most important step. I will be
+
+Encryption
+++++++++++
+
+* `gdisk /dev/nvme0n1`
+* `n`
+* Type `8309` for Linux LUKS
+* `w`
+
+* `cryptsetup luksFormat --type luks2 /dev/nvme0n1p7`
+* Enter passphrase
+* `cryptsetup open /dev/nvme0n1p7 cryptroot`
+
+.Volumes
+* `pvcreate /dev/mapper/cryptroot`
+* `vgcreate cryptLVM /dev/mapper/cryptroot`
+* `lvcreate -L 16G cryptLVM -n swap`
+* `lvcreate -L 70G cryptLVM -n root`
+* `lvcreate -l 100%FREE cryptLVM -n home`
+
+.Format Volumes
+* `mkfs.ext4 /dev/cryptLVM/root`
+* `mkfs.ext4 /dev/cryptLVM/home`
+* `mkswap /dev/cryptLVM/swap`
+
+.Mount Volumes
+* `mount /dev/cryptLVM/root /mnt
+* `mkdir -p /mnt/home`
+* `mount /dev/cryptLVM/home /mnt/home`
+* `swapon /dev/cryptLVM/swap`
+
+.ESP Partition
+* `mkdir -p /mnt/boot`
+* `mount /dev/nvme0n1p2 /mnt/boot` (windows efi partition)
+
+Installation
+++++++++++++
+
+* `pacstrap /mnt base base-devel grub intel-ucode neovim`
+* `genfstab -U /mnt >> /mnt/etc/fstab`
+* `arch-chroot /mnt`
+* `ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime`
+* `hwclock --systohc`
+* uncomment `en_US.UTF-8 UTF-8` in `/etc/locale.gen`
+* `locale-gen`
+* `echo "LANG=en_US.UTF-8" >> /etc/locale.conf`
+* `echo "KEYMAP=de-latin1" >> /etc/vconsole.conf`
+* `echo hostname >> /etc/hostname`
+* set `/etc/hosts`:
++
+-------------------------------------------
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	myhostname.localdomain	myhostname
+-------------------------------------------
+
+* `pacman -Syu networkmanager`
+
+
