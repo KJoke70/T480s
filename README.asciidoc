@@ -1,0 +1,20 @@
+Thinkpad T480s Setup
+====================
+Martin Lautenbacher
+:toc:
+:icons:
+:numbered:
+:Revision:
+//:website:
+//:reproducible:
+//:source-highlighter: rouge
+//:source-highlighter: coderay
+//:listing-caption: Listing
+
+Dualboot (Windows 10 + Arch) with disk encryption
+-------------------------------------------------
+
+Windows Installation
+~~~~~~~~~~~~~~~~~~~~
+
+As it is usually recommended, we start with installing Windows.
