@@ -150,3 +150,34 @@ Installation
 * `pacman -Syu networkmanager`
 
 
+
+
+
+Linux + HiDPI
+-------------
+
+Linux is known to scale poorly on HiDPI displays. Here are some ways
+to alleviate this issue:
+
+X-Server
+~~~~~~~~
+
+* https://wiki.archlinux.org/index.php/Xorg#Display_size_and_DPI
+* https://wiki.archlinux.org/index.php/HiDPI#X_Server
+
+Applications
+~~~~~~~~~~~~
+
+* https://wiki.archlinux.org/index.php/HiDPI#Applications
+
+GUI Toolkits
+~~~~~~~~~~~~
+
+* https://wiki.archlinux.org/index.php/HiDPI#GUI_toolkits
+
+-----------
+! set DPI: 96 = 100%, 120 = 125%, 144 = 150%,
+Xft.dpi: 90
+-----------
+
+
