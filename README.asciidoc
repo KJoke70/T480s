@@ -21,20 +21,101 @@ See link:dualboot.asciidoc[here].
 Nvidia Optimus & Linux
 ----------------------
 
-...
+* https://www.youtube.com/watch?v=5nGbWE-pvIE
+* https://wiki.archlinux.org/index.php/PRIME
+* https://wiki.archlinux.org/index.php/NVIDIA_Optimus
+* http://lenovolinux.blogspot.com/2018/02/bumblebee-on-lenovo-t440p-nvidia-gt.html?m=1
 
 
 HiDPI & Linux
 -------------
 
+* https://wiki.archlinux.org/index.php/HiDPI
+
+Adding this to my `~/.Xresources` has solved 90% of scaling for me
+(120 for 125% scaling):
+
+.`~/.Xresources`
+--------------------------
+Xft.dpi: 120
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
 ...
+--------------------------
+
+
+
 
 CPU throttling fix
 ------------------
 
-...
+* https://www.reddit.com/r/thinkpad/comments/870u0a/t480s_linux_throttling_bug/
+* https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_X1_Carbon_(Gen_6)#Power_management.2FThrottling_issues
+* https://github.com/erpalma/lenovo-throttling-fix
+
+
+Power Management
+----------------
+
+* Packages:
+  - `tlp`
+  - `tlp-rdw`
+  - `acpi_call`
+  - `tp_smapi` (doesn't work?)
+
+* http://thinkwiki.de/TLP_-_Linux_Stromsparen
+* https://wiki.archlinux.org/index.php/TLP
+* https://wiki.archlinux.org/index.php/Fan_speed_control
+* https://wiki.archlinux.org/index.php/Undervolting_CPU
+* https://wiki.archlinux.org/index.php/PHC
+* https://wiki.archlinux.org/index.php/CPU_frequency_scaling
+* https://wiki.archlinux.org/index.php/Laptop
+* https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T480s
+* https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T480
 
 Other
 -----
 
-...
+Special Buttons
+~~~~~~~~~~~~~~~
+
+Some buttons (`Fn+F11`, `Fn+F12`) have a keycode above 255 and are
+thus not supported by X. They can be remapped using:
+
+ACPI Events
+^^^^^^^^^^^
+
+* https://wiki.archlinux.org/index.php/acpid
+
+.`/etc/acpi/handler.sh`
+[source,Bash]
+-------------------------------------------------
+# ...
+    ibm/hotkey)
+      case "$4" in
+          00001311)
+              logger 'Favorites'
+              /etc/acpi/actions/favorites-key.sh
+              ;;
+          00001315)
+              logger 'Keyboard'
+              /etc/acpi/actions/keyboard-key.sh
+              ;;
+          *)
+              logger "ACPI action undefined: $1 : $2 : $3 : $4"
+              ;;
+  esac
+  ;;
+# ...
+-------------------------------------------------
+
+
+udev hwdb
+^^^^^^^^^
+* https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T480#Special_buttons
+* https://wiki.archlinux.org/index.php/Map_scancodes_to_keycodes
