@@ -31,6 +31,7 @@ HiDPI & Linux
 -------------
 
 * https://wiki.archlinux.org/index.php/HiDPI
+* https://wiki.archlinux.org/index.php/Xorg#Display_size_and_DPI<Paste>
 
 Adding this to my `~/.Xresources` has solved 90% of scaling for me
 (120 for 125% scaling):
