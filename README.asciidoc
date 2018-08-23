@@ -31,10 +31,9 @@ HiDPI & Linux
 -------------
 
 * https://wiki.archlinux.org/index.php/HiDPI
-* https://wiki.archlinux.org/index.php/Xorg#Display_size_and_DPI<Paste>
+* https://wiki.archlinux.org/index.php/Xorg#Display_size_and_DPI
 
-Adding this to my `~/.Xresources` has solved 90% of scaling for me
-(120 for 125% scaling):
+Adding this to my `~/.Xresources` has solved 90% of scaling for me (120 for 125% scaling):
 
 .`~/.Xresources`
 --------------------------
@@ -48,7 +47,6 @@ Xft.rgba: rgb
 
 ...
 --------------------------
-
 
 
 
@@ -78,6 +76,7 @@ Power Management
 * https://wiki.archlinux.org/index.php/Laptop
 * https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T480s
 * https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T480
+
 
 Other
 -----
@@ -118,5 +117,7 @@ ACPI Events
 
 udev hwdb
 ^^^^^^^^^
+
 * https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_T480#Special_buttons
 * https://wiki.archlinux.org/index.php/Map_scancodes_to_keycodes
+
