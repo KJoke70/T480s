@@ -115,7 +115,7 @@ ACPI Events
 
 1.  `pacman -Syu acpi`
 2.  `sudo systemctl enable acpid.service`
-3.  Modify `/etc/acpi/handler.sh`
+3.  Modify `/etc/acpi/handler.sh`:
 +
 .`/etc/acpi/handler.sh`
 [source,Bash]
