@@ -26,6 +26,28 @@ Nvidia Optimus & Linux
 * https://wiki.archlinux.org/index.php/NVIDIA_Optimus
 * http://lenovolinux.blogspot.com/2018/02/bumblebee-on-lenovo-t440p-nvidia-gt.html?m=1
 
+Bumblebee
+~~~~~~~~~
+
+1.  `pacman -Syu mesa xf86-video-intel nvidia bumblebee`
+2.  `sudo gpasswd -a user bumblebee` (replace _user_ with your
+    username)
+3.  `sudo systemctl enable bumblebeed.service`
+4.  If tlp is installed and enabled:
+    - Find the address of the GPU with `lspci | grep 3D` (First
+      column, such as `01:00.0`)
+    - Edit `/etc/default/tlp`:
++
+    ------------------------------
+    ...
+    RUNTIME_PM_BLACKLIST="01:00.0"
+    ...
+    ------------------------------
+
+5.  Reboot
+
+
+
 
 HiDPI & Linux
 -------------
@@ -63,9 +85,7 @@ Power Management
 
 * Packages:
   - `tlp`
-  - `tlp-rdw`
   - `acpi_call`
-  - `tp_smapi` (doesn't work?)
 
 * http://thinkwiki.de/TLP_-_Linux_Stromsparen
 * https://wiki.archlinux.org/index.php/TLP
