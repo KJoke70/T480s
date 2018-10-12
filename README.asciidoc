@@ -15,7 +15,8 @@ Martin Lautenbacher
 Dualboot with Arch, Windows 10 and disk encryption
 --------------------------------------------------
 
-See link:dualboot.asciidoc[here].
+* Turn of secure boot in the BIOS.
+* See link:dualboot.asciidoc[here].
 
 
 Nvidia Optimus & Linux
@@ -24,11 +25,12 @@ Nvidia Optimus & Linux
 * https://www.youtube.com/watch?v=5nGbWE-pvIE
 * https://wiki.archlinux.org/index.php/PRIME
 * https://wiki.archlinux.org/index.php/NVIDIA_Optimus
+* https://wiki.archlinux.org/index.php/bumblebee
 
 Bumblebee
 ~~~~~~~~~
 
-1.  `pacman -Syu mesa xf86-video-intel nvidia bumblebee`
+1.  `pacman -Syu mesa xf86-video-intel nvidia bumblebee bbswitch`
 2.  `sudo gpasswd -a user bumblebee` (replace _user_ with your
     username)
 3.  `sudo systemctl enable bumblebeed.service`
@@ -41,7 +43,31 @@ Bumblebee
     RUNTIME_PM_BLACKLIST="01:00.0"
     ...
 
-5.  Reboot
+5.  Configure bbswitch by editing: `/etc/modprobe.d/bbswitch.conf`
++
+    options bbswitch load_state=0 unload_state=1
+
+6.  Reboot
+
+
+Usage/Testing
+^^^^^^^^^^^^^
+
+1.  To see if the dGPU is turned off/on: `cat /proc/acpi/bbswitch`
+2.  To manually turn the dGPU on: `sudo tee /proc/acpi/bbswitch <<< ON`
+3.  To manually turn the dGPU off: `sudo tee /proc/acpi/bbswitch <<< OFF`
+4.  To unload nvidia modules manually: `sudo rmmod nvidia_uvm && sudo rmmod
+    nvidia`
+5.  To test if bumblebee is working correctly:
+    - Check if dGPU is turned OFF
+    - Run `optirun glxspheres64` or `optirun glxgears -info` (both in package
+      `mesa-demos`)
+    - While `glxgears` runs, check if dGPU is ON
+    - Close the optirun terminal
+    - Check if dGPU is OFF
+    - For performance comparison, run `glxspheres64` or `glxgears` (without
+      optirun)
+6.  For improving performance, check https://wiki.archlinux.org/index.php/bumblebee#Optimizing_speed
 
 
 .References
