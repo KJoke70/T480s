@@ -108,7 +108,7 @@ CPU throttling fix
 * **ATTENTION**: Choose your parameters carefully and do proper testing. Bad
   values may cause system instability, inability to boot or worse (possibly, I
   don't really know). Just be careful and change values incrementally with tests
-  in between. Optimal values are individual to your machine..
+  in between. Optimal values are individual to your machine.
 
 .References
 * https://www.reddit.com/r/thinkpad/comments/870u0a/t480s_linux_throttling_bug/
