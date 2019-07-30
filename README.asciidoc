@@ -102,10 +102,18 @@ Xft.rgba: rgb
 CPU throttling fix
 ------------------
 
+* Install `throttled` from the community repository.
+* Configure `/etc/lenovo_fix.conf` with the desired undervolting etc.
+* Start the service with `sudo systemctl enable --now lenovo_fix.service`
+* **ATTENTION**: Choose your parameters carefully and do proper testing. Bad
+  values may cause system instability, inability to boot or worse (possibly, I
+  don't really know). Just be careful and change values incrementally with tests
+  in between. Optimal values are individual to your machine..
+
 .References
 * https://www.reddit.com/r/thinkpad/comments/870u0a/t480s_linux_throttling_bug/
 * https://wiki.archlinux.org/index.php/Lenovo_ThinkPad_X1_Carbon_(Gen_6)#Power_management.2FThrottling_issues
-* https://github.com/erpalma/lenovo-throttling-fix
+* https://github.com/erpalma/throttled
 
 
 Power Management
